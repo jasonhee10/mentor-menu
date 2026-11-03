@@ -9,6 +9,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="styles.css">
+<style>
+  .team { border-top: 1px solid var(--line); padding-block: 40px 48px; }
+  .team h2 { font-family: var(--f-display); font-weight: 700; font-size: 26px; letter-spacing: -.01em; margin: 0; }
+  .team .sub { color: var(--muted); margin: 6px 0 20px; max-width: 62ch; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .member { display: flex; gap: 12px; align-items: center; min-width: 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  .member .avatar { width: 48px; height: 48px; font-size: 17px; }
+  .member .m-text { min-width: 0; flex: 1; }
+  .member .m-name { font-weight: 600; font-size: 15px; }
+  .member .m-role { color: var(--muted); font-size: 13px; }
+  .member .li { padding: 6px; }
+</style>
 </head>
 <body>
 <header class="mast wrap">
@@ -35,9 +47,16 @@
   <div class="empty" id="empty" hidden>No mentors match that yet. <button type="button" id="reset">Clear filters</button></div>
 </main>
 
+<section class="team wrap" id="team" hidden>
+  <h2>The event team</h2>
+  <p class="sub">We put 300 Connect together. Questions before or during the event, or need help finding the right mentor? Come find us.</p>
+  <div class="team-grid" id="teamGrid"></div>
+</section>
+
 <footer class="wrap">Hosted by Northeastern's McCarthy(s) Venture Mentoring Network and Misneach. Questions on the day? Find a VMN team member at check-in.</footer>
 
 <script src="mentors.js"></script>
+<script src="team.js"></script>
 <script>
 (function () {
   const TOPICS = window.TOPICS, MENTORS = window.MENTORS;
@@ -104,8 +123,24 @@
     renderChips(); render();
   });
 
+  function renderTeam() {
+    const team = window.TEAM || [];
+    if (!team.length) return;
+    $("teamGrid").innerHTML = team.map(p => `
+      <div class="member">
+        <div class="avatar">${avatar(p)}</div>
+        <div class="m-text">
+          <div class="m-name">${esc(p.name)}</div>
+          <div class="m-role">${esc([p.role, p.org].filter(Boolean).join(" · "))}</div>
+        </div>
+        ${p.linkedin ? `<a class="li" href="${esc(p.linkedin)}" target="_blank" rel="noopener" aria-label="${esc(p.name)} on LinkedIn">${liIcon}</a>` : ""}
+      </div>`).join("");
+    $("team").hidden = false;
+  }
+
   renderChips();
   render();
+  renderTeam();
 })();
 </script>
 </body>
