@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>300 Connect Mentor Menu</title>
-<meta name="description" content="Meet the mentors at 300 Connect: Live, hosted by Northeastern's Venture Mentoring Network and Misneach.">
+<meta name="description" content="Meet the mentors at 300 Connect: Live, hosted by Northeastern's McCarthy(s) Venture Mentoring Network and Misneach.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
@@ -15,7 +15,7 @@
   <div class="eyebrow"><span>300 Connect: Live</span><span class="dot" aria-hidden="true"></span><span>Nov. 19, 2026</span><span class="dot" aria-hidden="true"></span><span>Northeastern University</span></div>
   <h1>The Mentor <em>Menu</em></h1>
   <p class="lede">Pick the problem you want help with, find the mentor who has solved it before, and look them up before you sit down at their table.</p>
-  <div class="partners">Venture Mentoring Network <span class="x">×</span> Misneach</div>
+  <div class="partners">McCarthy(s) Venture Mentoring Network <span class="x">×</span> Misneach</div>
   <div class="note" id="sampleNote" hidden><b>Preview</b><span>These are placeholder mentors. Real names, photos, LinkedIn links and expertise will replace them before the event.</span></div>
 </header>
 
@@ -35,7 +35,7 @@
   <div class="empty" id="empty" hidden>No mentors match that yet. <button type="button" id="reset">Clear filters</button></div>
 </main>
 
-<footer class="wrap">Hosted by Northeastern's Venture Mentoring Network and Misneach. Questions on the day? Find a VMN team member at check-in.</footer>
+<footer class="wrap">Hosted by Northeastern's McCarthy(s) Venture Mentoring Network and Misneach. Questions on the day? Find a VMN team member at check-in.</footer>
 
 <script src="mentors.js"></script>
 <script>
@@ -75,10 +75,10 @@
           <div class="avatar">${avatar(m)}</div>
           <div class="who-text">
             <h2 class="name">${esc(m.name)}</h2>
-            <div class="role">${esc([m.title, m.company].filter(Boolean).join(" · "))}</div>
+            ${m.title || m.company ? `<div class="role">${esc([m.title, m.company].filter(Boolean).join(" · "))}</div>` : ""}
           </div>
         </div>
-        <p class="expertise">${esc(m.expertise)}</p>
+        ${m.expertise ? `<p class="expertise">${esc(m.expertise)}</p>` : ""}
         <div class="tags">${m.topics.map(t => `<span class="tag${t === active ? " hit" : ""}">${esc(t)}</span>`).join("")}</div>
         <div class="foot">
           <span class="table-no">${m.table ? "Table " + esc(m.table) : ""}</span>
