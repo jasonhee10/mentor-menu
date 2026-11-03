@@ -3,7 +3,7 @@ window.TEAM = [
   {"name": "Katrina Brink", "role": "", "org": "", "linkedin": "", "photo": ""},
   {"name": "JulieAnne McNary", "role": "", "org": "", "linkedin": "", "photo": ""},
   {"name": "Nandini Anand", "role": "Founder Propulsion Associate", "org": "Misneach", "linkedin": "", "photo": ""},
-  {"name": "Soledad Perez", "role": "Founder Propulsion Associate", "org": "Misneach", "linkedin": "", "photo": ""},
+  {"name": "Soledad Perez Leon", "role": "Founder Propulsion Associate", "org": "Misneach", "linkedin": "", "photo": ""},
   {"name": "Jason He", "role": "Venture Strategist", "org": "McCarthy(s) Venture Mentoring Network", "linkedin": "", "photo": ""},
   {"name": "Hangyue Zhang", "role": "Venture Strategist", "org": "McCarthy(s) Venture Mentoring Network", "linkedin": "", "photo": ""}
 ];
