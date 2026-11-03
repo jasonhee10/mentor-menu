@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="styles.css">
 <style>
+  .mast { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center; }
+  .mast-logo { width: 240px; max-width: 100%; aspect-ratio: 1; border-radius: 14px; background: #fff; border: 1px solid var(--line); display: block; }
+  @media (max-width: 720px) { .mast { grid-template-columns: 1fr; } .mast-logo { width: 180px; grid-row: 1; } }
   .team { border-top: 1px solid var(--line); padding-block: 40px 48px; }
   .team h2 { font-family: var(--f-display); font-weight: 700; font-size: 26px; letter-spacing: -.01em; margin: 0; }
   .team .sub { color: var(--muted); margin: 6px 0 20px; max-width: 62ch; }
@@ -24,11 +27,14 @@
 </head>
 <body>
 <header class="mast wrap">
+  <div class="mast-text">
   <div class="eyebrow"><span>300 Connect: Live</span><span class="dot" aria-hidden="true"></span><span>Nov. 19, 2026</span><span class="dot" aria-hidden="true"></span><span>Northeastern University</span></div>
   <h1>The Mentor <em>Menu</em></h1>
   <p class="lede">Pick the problem you want help with, find the mentor who has solved it before, and look them up before you sit down at their table.</p>
   <div class="partners">McCarthy(s) Venture Mentoring Network <span class="x">×</span> Misneach</div>
   <div class="note" id="sampleNote" hidden><b>Preview</b><span>These are placeholder mentors. Real names, photos, LinkedIn links and expertise will replace them before the event.</span></div>
+  </div>
+  <img class="mast-logo" src="event-logo.png" alt="300 Connect: Live — Misneach × Venture Mentoring Network, Northeastern University" width="240" height="240">
 </header>
 
 <div class="bar"><div class="wrap">
