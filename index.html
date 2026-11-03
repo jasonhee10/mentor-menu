@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>300 Connect Mentor Menu</title>
+<meta name="description" content="Meet the mentors at 300 Connect: Live, hosted by Northeastern's Venture Mentoring Network and Misneach.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="mast wrap">
+  <div class="eyebrow"><span>300 Connect: Live</span><span class="dot" aria-hidden="true"></span><span>Nov. 19, 2026</span><span class="dot" aria-hidden="true"></span><span>Northeastern University</span></div>
+  <h1>The Mentor <em>Menu</em></h1>
+  <p class="lede">Pick the problem you want help with, find the mentor who has solved it before, and look them up before you sit down at their table.</p>
+  <div class="partners">Venture Mentoring Network <span class="x">×</span> Misneach</div>
+  <div class="note" id="sampleNote" hidden><b>Preview</b><span>These are placeholder mentors. Real names, photos, LinkedIn links and expertise will replace them before the event.</span></div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <div class="bar-top">
+    <label class="search" for="q">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search by name, company or skill" autocomplete="off" aria-label="Search mentors">
+    </label>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Filter by topic"></div>
+</div></div>
+
+<main class="wrap">
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden>No mentors match that yet. <button type="button" id="reset">Clear filters</button></div>
+</main>
+
+<footer class="wrap">Hosted by Northeastern's Venture Mentoring Network and Misneach. Questions on the day? Find a VMN team member at check-in.</footer>
+
+<script src="mentors.js"></script>
+<script>
+(function () {
+  const TOPICS = window.TOPICS, MENTORS = window.MENTORS;
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const initials = (n) => n.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+  const sorted = [...MENTORS].sort((a, b) => a.name.localeCompare(b.name));
+  const liIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3v-11zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.16-.02-2.64-1.61-2.64-1.61 0-1.86 1.26-1.86 2.56v4.92h-4v-11z"/></svg>';
+
+  let active = "All";
+  try { const s = localStorage.getItem("mm-topic"); if (s && (s === "All" || TOPICS.includes(s))) active = s; } catch (e) {}
+  $("sampleNote").hidden = !window.SAMPLE;
+
+  function renderChips() {
+    const all = [["All", MENTORS.length], ...TOPICS.map(t => [t, MENTORS.filter(m => m.topics.includes(t)).length])];
+    $("chips").innerHTML = all.map(([t, n]) =>
+      `<button type="button" class="chip" data-t="${esc(t)}" aria-pressed="${t === active}">${esc(t)} <span class="n">${n}</span></button>`).join("");
+  }
+
+  function avatar(m) {
+    const fallback = esc(initials(m.name));
+    if (!m.photo) return fallback;
+    return `<img src="${esc(m.photo)}" alt="Photo of ${esc(m.name)}" loading="lazy" onerror="this.replaceWith(document.createTextNode('${fallback}'))">`;
+  }
+
+  function render() {
+    const q = $("q").value.trim().toLowerCase();
+    const list = sorted.filter(m => {
+      if (active !== "All" && !m.topics.includes(active)) return false;
+      return !q || [m.name, m.title, m.company, m.expertise, ...m.topics].join(" ").toLowerCase().includes(q);
+    });
+    $("grid").innerHTML = list.map(m => `
+      <article class="card">
+        <div class="who">
+          <div class="avatar">${avatar(m)}</div>
+          <div class="who-text">
+            <h2 class="name">${esc(m.name)}</h2>
+            <div class="role">${esc([m.title, m.company].filter(Boolean).join(" · "))}</div>
+          </div>
+        </div>
+        <p class="expertise">${esc(m.expertise)}</p>
+        <div class="tags">${m.topics.map(t => `<span class="tag${t === active ? " hit" : ""}">${esc(t)}</span>`).join("")}</div>
+        <div class="foot">
+          <span class="table-no">${m.table ? "Table " + esc(m.table) : ""}</span>
+          ${m.linkedin ? `<a class="li" href="${esc(m.linkedin)}" target="_blank" rel="noopener">${liIcon} LinkedIn</a>`
+                       : `<span class="li off" aria-disabled="true">${liIcon} Link coming soon</span>`}
+        </div>
+      </article>`).join("");
+    $("empty").hidden = list.length > 0;
+    $("count").textContent = `${list.length} of ${MENTORS.length} mentors`;
+  }
+
+  $("chips").addEventListener("click", (e) => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    active = b.dataset.t;
+    try { localStorage.setItem("mm-topic", active); } catch (err) {}
+    $("chips").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.t === active));
+    render();
+  });
+  $("q").addEventListener("input", render);
+  $("reset").addEventListener("click", () => {
+    active = "All"; $("q").value = "";
+    try { localStorage.setItem("mm-topic", "All"); } catch (err) {}
+    renderChips(); render();
+  });
+
+  renderChips();
+  render();
+})();
+</script>
+</body>
+</html>
