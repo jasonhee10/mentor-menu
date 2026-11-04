@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>300 Connect: Live Mentor Menu</title>
+<title>300 Connect Mentor Menu</title>
 <meta name="description" content="Meet the mentors at 300 Connect: Live, hosted by Northeastern's McCarthy(s) Venture Mentoring Network and Misneach.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
 <style>
   .mast { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center; }
   .mast-logo { width: 240px; max-width: 100%; aspect-ratio: 1; border-radius: 14px; background: #fff; border: 1px solid var(--line); display: block; }
-  @media (max-width: 720px) { .mast { grid-template-columns: 1fr; } .mast-logo { width: 180px; grid-row: 1; } }
+  .mast-strip { display: none; }
   .team { border-top: 1px solid var(--line); padding-block: 40px 48px; }
   .team h2 { font-family: var(--f-display); font-weight: 700; font-size: 26px; letter-spacing: -.01em; margin: 0; }
   .team .sub { color: var(--muted); margin: 6px 0 20px; max-width: 62ch; }
@@ -23,14 +23,56 @@
   .member .m-name { font-weight: 600; font-size: 15px; }
   .member .m-role { color: var(--muted); font-size: 13px; }
   .member .li { padding: 6px; }
-  .card .tags { margin-top: auto; }
-  .card .foot { margin-top: 0; }
+  .card .foot { margin-top: auto; flex-wrap: nowrap; }
+  .card .foot .tags { min-width: 0; flex: 1; }
+  .card .foot .tag { white-space: normal; line-height: 1.3; }
+  .card .foot .li { flex: none; }
+
+  /* ---------- Phones: most people open this from the event QR code ---------- */
+  @media (max-width: 720px) {
+    header.mast { grid-template-columns: 1fr; gap: 14px; padding-block: 16px 18px; }
+    .mast-logo { display: none; }
+    .mast-strip { display: block; width: 100%; height: auto; background: #fff; border-radius: 12px; border: 1px solid var(--line); padding: 10px 14px; }
+    .eyebrow { font-size: 11px; gap: 4px 10px; }
+    .eyebrow .hide-sm, .eyebrow .dot.hide-sm { display: none; }
+    h1 { font-size: 40px; margin-top: 8px; }
+    .lede { font-size: 15px; margin-top: 10px; }
+    .partners { display: none; }
+
+    .bar .wrap { padding-block: 10px; gap: 8px; }
+    .bar-top { gap: 6px; }
+    .search { flex-basis: 100%; }
+    .search input { padding-block: 9px; font-size: 16px; }
+    .count { font-size: 11px; }
+    .chips { margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { font-size: 13px; padding: 6px 11px; }
+
+    main { padding-block: 14px 32px; }
+    .grid { grid-template-columns: 1fr; gap: 12px; }
+    .card { padding: 14px; gap: 10px; border-radius: 12px; }
+    .card .avatar { width: 60px; height: 60px; font-size: 20px; }
+    .name { font-size: 18px; }
+    .role { font-size: 13px; margin-top: 2px; }
+    .expertise { font-size: 14px; line-height: 1.45; }
+    .card .foot { padding-top: 10px; }
+    .li { padding: 6px 10px; font-size: 13px; }
+
+    .team { padding-block: 28px 32px; }
+    .team h2 { font-size: 22px; }
+    .team .sub { font-size: 14px; margin-bottom: 14px; }
+    .team-grid { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 10px; }
+    .member { padding: 10px 12px; }
+    .member .avatar { width: 56px; height: 56px; font-size: 19px; }
+    footer { padding-block: 18px 28px; font-size: 12px; }
+  }
 </style>
 </head>
 <body>
 <header class="mast wrap">
+  <img class="mast-strip" src="partners-logo.png" alt="Misneach × Venture Mentoring Network, Northeastern University" width="1000" height="197">
   <div class="mast-text">
-  <div class="eyebrow"><span>300 Connect: Live</span><span class="dot" aria-hidden="true"></span><span>Nov. 19, 2026</span><span class="dot" aria-hidden="true"></span><span>Northeastern University</span></div>
+  <div class="eyebrow"><span>300 Connect: Live</span><span class="dot" aria-hidden="true"></span><span>Nov. 19, 2026</span><span class="dot hide-sm" aria-hidden="true"></span><span class="hide-sm">Northeastern University</span></div>
   <h1>The Mentor <em>Menu</em></h1>
   <p class="lede">Pick the problem you want help with, find the mentor who has solved it before, and look them up before you sit down at their table.</p>
   <div class="partners">McCarthy(s) Venture Mentoring Network <span class="x">×</span> Misneach</div>
@@ -43,7 +85,7 @@
   <div class="bar-top">
     <label class="search" for="q">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Search by name, company or skill" autocomplete="off" aria-label="Search mentors">
+      <input id="q" type="search" placeholder="Search mentors, companies or skills" autocomplete="off" aria-label="Search mentors">
     </label>
     <span class="count" id="count" aria-live="polite"></span>
   </div>
@@ -56,8 +98,8 @@
 </main>
 
 <section class="team wrap" id="team" hidden>
-      <h2>Event team</h2>
-     <p class="sub">These are the people who helped bring 300 Connect: Live together. If you have questions before or during the event, or need help finding the right mentor, reach out to any of us.</p>
+  <h2>Event support team</h2>
+  <p class="sub">These are the people who helped bring 300 Connect: Live together. If you have questions before or during the event, or need help finding the right mentor, reach out to any of us.</p>
   <div class="team-grid" id="teamGrid"></div>
 </section>
 
@@ -107,9 +149,8 @@
           </div>
         </div>
         ${m.expertise ? `<p class="expertise">${esc(m.expertise)}</p>` : ""}
-        <div class="tags">${m.topics.map(t => `<span class="tag${t === active ? " hit" : ""}">${esc(t)}</span>`).join("")}</div>
         <div class="foot">
-          <span class="table-no">${m.table ? "Table " + esc(m.table) : ""}</span>
+          <div class="tags">${m.topics.filter(Boolean).map(t => `<span class="tag${t === active ? " hit" : ""}">${esc(t)}</span>`).join("")}${m.table ? `<span class="tag">Table ${esc(m.table)}</span>` : ""}</div>
           ${m.linkedin ? `<a class="li" href="${esc(m.linkedin)}" target="_blank" rel="noopener">${liIcon} LinkedIn</a>`
                        : `<span class="li off" aria-disabled="true">${liIcon} Link coming soon</span>`}
         </div>
