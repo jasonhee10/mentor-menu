@@ -1,8 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#ECE6FA">
 <title>300 Connect Mentor Menu</title>
 <meta name="description" content="Meet the mentors at 300 Connect: Live, hosted by Northeastern's McCarthy(s) Venture Mentoring Network and Misneach.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,6 +12,23 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="styles.css">
 <style>
+  /* Always light, with a soft Misneach-purple to VMN-blue wash */
+  :root, :root[data-theme="light"] {
+    color-scheme: light;
+    --accent: #4B1C9B; --accent-soft: #ECE6FA; --accent-ink: #FFFFFF;
+    --brand-blue: #1E8ED6;
+  }
+  html { background: #F3F1FB; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(170deg, #E6DDF8 0%, #F1EDFB 28%, #F4F6FB 55%, #E6F2FB 80%, #D6ECFA 100%);
+    background-attachment: fixed;
+  }
+  body::before { background: #E6DDF8; }
+  h1 em { background: linear-gradient(90deg, #4B1C9B, var(--brand-blue)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bar { background: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom-color: rgba(75, 28, 155, .12); }
+  .card, .member { border-color: rgba(75, 28, 155, .12); box-shadow: 0 1px 2px rgba(40, 20, 90, .04); }
+  .team, footer { border-top-color: rgba(75, 28, 155, .14); }
   .mast { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center; }
   .mast-logo { width: 240px; max-width: 100%; aspect-ratio: 1; border-radius: 14px; background: #fff; border: 1px solid var(--line); display: block; }
   .mast-strip { display: none; }
