@@ -8,19 +8,23 @@
 window.SAMPLE = false;
 
 window.TOPICS = [
-  "Validation & Product",
+  "DMSB Faculty",
   "Angel Investors",
   "Bootstrapping",
-  "Pitch Deck Feedback",
-  "Go-to-Market",
-  "Marketing",
   "Finance",
-  "Team & Leadership",
+  "Founder Wellbeing",
+  "Go-to-Market",
   "Legal & Operations",
-  "Founder Wellbeing"
+  "Marketing",
+  "Pitch Deck Feedback",
+  "Team & Leadership",
+  "Validation & Product"
 ];
 
 window.MENTORS = [
+  {"name": "Emery Trahan", "title": "Interim Dean", "company": "D’Amore-McKim School of Business", "linkedin": "https://www.linkedin.com/in/emery-trahan-021a854/", "photo": "photos/emery-trahan.jpg", "topics": ["DMSB Faculty"], "expertise": "Interim Dean of D’Amore-McKim and a nationally recognized finance scholar and award-winning educator who has helped shape the school’s direction for more than 35 years.", "table": ""},
+  {"name": "Greg Collier", "title": "Professor of Practice", "company": "D’Amore-McKim School of Business", "linkedin": "https://www.linkedin.com/in/greg-collier-83352/", "photo": "photos/greg-collier.png", "topics": ["DMSB Faculty"], "expertise": "Business development executive turned top-rated professor who teaches corporate innovation, business model innovation and sales strategy; leads NUCEE’s international venture ecosystems in India and China.", "table": ""},
+  {"name": "Nikki James", "title": "Assistant Teaching Professor, Entrepreneurship & Innovation", "company": "D’Amore-McKim School of Business", "linkedin": "https://www.linkedin.com/in/drnikkijames/", "photo": "photos/nikki-james.png", "topics": ["DMSB Faculty"], "expertise": "Social entrepreneurship scholar and Assistant Group Chair who helps founders build ventures with social impact, especially in low-resource settings; two-time Northeastern Global Educator Award nominee.", "table": ""},
   {"name": "Alan Freeman", "title": "Principal", "company": "Acorn Capital Partners", "linkedin": "https://www.linkedin.com/in/halanfreeman/", "photo": "photos/alan-freeman.jpg", "topics": ["Angel Investors"], "expertise": "Turnaround operator and VC co-founder who finds what’s holding a business back and fixes it; now focused on buying, valuing and scaling lower-middle-market companies.", "table": ""},
   {"name": "Teddy Joyce", "title": "Managing Member", "company": "Sentry Hill Legal, LLC", "linkedin": "https://www.linkedin.com/in/sentryhilllegal/", "photo": "photos/teddy-joyce.jpg", "topics": ["Angel Investors"], "expertise": "Attorney and business and tax advisor with 20+ years running businesses and consulting for companies up to the Fortune 100, who helps founders find creative solutions to legal, tax and business problems.", "table": ""},
   {"name": "Patricia Lozada", "title": "Senior Advisor Global Partnerships", "company": "Epipelagic Ventures", "linkedin": "https://www.linkedin.com/in/patricialozada/", "photo": "photos/patricia-lozada.jpg", "topics": ["Finance"], "expertise": "Brings together strategy, global partnerships, investment and public policy to help ventures grow sustainably, with deep experience in corporate affairs, negotiation and international relations.", "table": ""},
@@ -42,5 +46,5 @@ window.MENTORS = [
   {"name": "Amina Altaf", "title": "Platform & Operations", "company": "Misneach", "linkedin": "https://www.linkedin.com/in/amina-altaf-5067426/", "photo": "photos/amina-altaf.jpg", "topics": ["Validation & Product"], "expertise": "Product marketing leader who has built go-to-market strategies at early and growth-stage B2B software, AI and data companies; helps founders with positioning, messaging and launching products to the right buyers.", "table": ""},
   {"name": "Sophie Durey", "title": "Venture Director", "company": "Tamar Capital", "linkedin": "https://www.linkedin.com/in/sophiedurey/", "photo": "photos/sophie-durey.jpg", "topics": ["Founder Wellbeing"], "expertise": "Venture capital and impact investor with 15+ years running deals across the US and Europe; helps founders understand how investors evaluate a startup, prepare for a raise and build relationships with VCs and family offices.", "table": ""},
   {"name": "Kristin Skinner", "title": "Advisor", "company": "WE ARE THE BOARD", "linkedin": "https://www.linkedin.com/in/velocityco/", "photo": "photos/kristin-skinner.jpg", "topics": ["Founder Wellbeing"], "expertise": "Former executive at Expedia, Capital One and Microsoft and author of O’Reilly’s Org Design for Design Orgs; helps founders spot the organizational friction that slows teams down and build systems that let the company keep moving fast as it grows.", "table": ""},
-  {"name": "Roy Wallen", "title": "President & CEO", "company": "Directional Healthcare Advisors", "linkedin": "https://www.linkedin.com/in/roywallen/", "photo": "photos/roy-wallen.jpg", "topics": [""], "expertise": "C-level healthcare executive who has launched medical devices, diagnostics and therapeutics from concept to clinical practice; helps founders with company formation, fundraising, product development and commercializing health tech.", "table": ""},
+  {"name": "Roy Wallen", "title": "President & CEO", "company": "Directional Healthcare Advisors", "linkedin": "https://www.linkedin.com/in/roywallen/", "photo": "photos/roy-wallen.jpg", "topics": [""], "expertise": "C-level healthcare executive who has launched medical devices, diagnostics and therapeutics from concept to clinical practice; helps founders with company formation, fundraising, product development and commercializing health tech.", "table": ""}
 ];
