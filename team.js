@@ -5,6 +5,7 @@ window.TEAM = [
   {"name": "Nandini Anand", "role": "Founder Propulsion Associate", "org": "Misneach · DMSB ’27", "linkedin": "https://www.linkedin.com/in/nandini-anand-/", "photo": "photos/nandini-anand.png"},
   {"name": "Soledad Perez Leon", "role": "Founder Propulsion Associate", "org": "Misneach · DMSB ’27", "linkedin": "https://www.linkedin.com/in/soledad-perez-leon-1a16a32a2/", "photo": "photos/soledad-perez-leon.jpg"},
   {"name": "C. Hawkins", "role": "Student Engagement & Philanthropy", "org": "Northeastern University", "linkedin": "https://www.linkedin.com/in/cperiodhawkins/", "photo": "photos/c-hawkins.png"},
+  {"name": "Andrea Roman", "role": "Venture Strategist", "org": "McCarthy(s) Venture Mentoring Network · DMSB ’28", "linkedin": "https://www.linkedin.com/in/andrea-camille-roman/", "photo": "photos/andrea-roman.jpeg"},
   {"name": "Jason He", "role": "Venture Strategist", "org": "McCarthy(s) Venture Mentoring Network · DMSB ’28", "linkedin": "https://www.linkedin.com/in/jasonhee1/", "photo": "photos/jason-he2.png"},
   {"name": "Hangyue Zhang", "role": "Venture Strategist", "org": "McCarthy(s) Venture Mentoring Network · DMSB ’28", "linkedin": "https://www.linkedin.com/in/hangyuezhang/", "photo": "photos/hangyue-zhang.jpg"}
 ];
