@@ -43,6 +43,9 @@
   .member { position: relative; padding-bottom: 44px; }
   .member .li { padding: 6px; position: absolute; right: 12px; bottom: 10px; }
   .card .who { align-items: flex-start; }
+  .groups { display: flex; flex-direction: column; gap: 36px; }
+  .group-title { font-family: var(--f-display); font-weight: 700; font-size: 22px; letter-spacing: -.01em; margin: 0 0 14px; display: flex; align-items: baseline; gap: 10px; }
+  .group-title .n { font-family: var(--f-mono); font-size: 12px; font-weight: 500; color: var(--muted); }
   .card .foot { margin-top: auto; flex-wrap: nowrap; }
   .card .foot .tags { min-width: 0; flex: 1; }
   .card .foot .tag { white-space: normal; line-height: 1.3; }
@@ -70,6 +73,8 @@
 
     main { padding-block: 14px 32px; }
     .grid { grid-template-columns: 1fr; gap: 12px; }
+    .groups { gap: 26px; }
+    .group-title { font-size: 19px; margin-bottom: 10px; }
     .card { padding: 14px; gap: 10px; border-radius: 12px; }
     .card .avatar { width: 60px; height: 60px; font-size: 20px; }
     .name { font-size: 18px; }
@@ -119,7 +124,7 @@
 </main>
 
 <section class="team wrap" id="team" hidden>
-  <h2>Event team</h2>
+  <h2>Event support team</h2>
   <p class="sub">These are the people who helped bring 300 Connect: Live together. If you have questions before or during the event, or need help finding the right mentor, reach out to any of us.</p>
   <div class="team-grid" id="teamGrid"></div>
 </section>
@@ -135,8 +140,7 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const initials = (n) => { const w = n.split(/\s+/).filter(Boolean); return (w.length > 1 ? w[0][0] + w[w.length - 1][0] : (w[0] || "").slice(0, 2)).toUpperCase(); };
-  const isFac = (m) => m.topics.includes("DMSB Faculty");
-  const sorted = [...MENTORS].sort((a, b) => (isFac(b) - isFac(a)) || a.name.localeCompare(b.name));
+  const sorted = [...MENTORS].sort((a, b) => a.name.localeCompare(b.name));
   const liIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3v-11zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.16-.02-2.64-1.61-2.64-1.61 0-1.86 1.26-1.86 2.56v4.92h-4v-11z"/></svg>';
 
   let active = "All";
@@ -161,7 +165,7 @@
       if (active !== "All" && !m.topics.includes(active)) return false;
       return !q || [m.name, m.title, m.company, m.expertise, ...m.topics].join(" ").toLowerCase().includes(q);
     });
-    $("grid").innerHTML = list.map(m => `
+    const card = (m) => `
       <article class="card">
         <div class="who">
           <div class="avatar">${avatar(m)}</div>
@@ -176,7 +180,29 @@
           ${m.linkedin ? `<a class="li" href="${esc(m.linkedin)}" target="_blank" rel="noopener">${liIcon} LinkedIn</a>`
                        : `<span class="li off" aria-disabled="true">${liIcon} Link coming soon</span>`}
         </div>
-      </article>`).join("");
+      </article>`;
+    const grid = $("grid");
+    if (active === "All" && !q) {
+      // Group by focus area: each mentor appears once, under their first expertise topic.
+      // "NU Faculty & Leaders" holds only those with no other topic (others keep the tag on their card).
+      const NU = "NU Faculty & Leaders";
+      const groups = TOPICS.map(t => ({ t, items: [] }));
+      const other = { t: "Other Mentors", items: [] };
+      list.forEach(m => {
+        const g = groups.find(g => g.t !== NU && m.topics.includes(g.t)) || (m.topics.includes(NU) ? groups.find(g => g.t === NU) : null);
+        (g || other).items.push(m);
+      });
+      if (other.items.length) groups.push(other);
+      grid.className = "groups";
+      grid.innerHTML = groups.filter(g => g.items.length).map(g => `
+        <section class="group">
+          <h2 class="group-title">${esc(g.t)} <span class="n">${g.items.length}</span></h2>
+          <div class="grid">${g.items.map(card).join("")}</div>
+        </section>`).join("");
+    } else {
+      grid.className = "grid";
+      grid.innerHTML = list.map(card).join("");
+    }
     $("empty").hidden = list.length > 0;
     $("count").textContent = `${list.length} of ${MENTORS.length} mentors`;
   }
