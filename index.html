@@ -141,6 +141,10 @@
   const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const initials = (n) => { const w = n.split(/\s+/).filter(Boolean); return (w.length > 1 ? w[0][0] + w[w.length - 1][0] : (w[0] || "").slice(0, 2)).toUpperCase(); };
   const sorted = [...MENTORS].sort((a, b) => a.name.localeCompare(b.name));
+  // Faculty & staff (NU Faculty & Leaders) are listed by last name
+  const NU = "NU Faculty & Leaders";
+  const lastName = (n) => n.trim().split(/\s+/).slice(-1)[0];
+  const byLast = (a, b) => lastName(a.name).localeCompare(lastName(b.name)) || a.name.localeCompare(b.name);
   const liIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3v-11zm6.5 0h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.16-.02-2.64-1.61-2.64-1.61 0-1.86 1.26-1.86 2.56v4.92h-4v-11z"/></svg>';
 
   let active = "All";
@@ -185,7 +189,6 @@
     if (active === "All" && !q) {
       // Group by focus area: each mentor appears once, under their first expertise topic.
       // "NU Faculty & Leaders" holds only those with no other topic (others keep the tag on their card).
-      const NU = "NU Faculty & Leaders";
       const groups = TOPICS.map(t => ({ t, items: [] }));
       const other = { t: "Other Mentors", items: [] };
       list.forEach(m => {
@@ -193,6 +196,7 @@
         (g || other).items.push(m);
       });
       if (other.items.length) groups.push(other);
+      groups.forEach(g => { if (g.t === NU) g.items.sort(byLast); });
       grid.className = "groups";
       grid.innerHTML = groups.filter(g => g.items.length).map(g => `
         <section class="group">
@@ -201,7 +205,7 @@
         </section>`).join("");
     } else {
       grid.className = "grid";
-      grid.innerHTML = list.map(card).join("");
+      grid.innerHTML = (active === NU ? [...list].sort(byLast) : list).map(card).join("");
     }
     $("empty").hidden = list.length > 0;
     $("count").textContent = `${list.length} of ${MENTORS.length} mentors`;
